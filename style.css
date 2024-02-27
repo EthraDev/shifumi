@@ -2,11 +2,136 @@ body {
     font-family: Arial, sans-serif;
 }
 
+.flex {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    align-content: center;
+    gap: 10px;
+    margin: auto;
+    
+}
+
+.result{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+    margin: auto;
+
+}
+
+.result img {
+    width: 100px;
+    height: 100px;
+}
+
+.result img:first-child {
+    display: block;
+
+}
+
 button {
     padding: 10px 20px;
+    margin-top: 20px;
     font-size: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    transition: all 0.3s ease 0s;
+    width: fit-content;
+    /* margin-left: 40%; */
+    text-align: center;
+
+}
+
+/* .divButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+} */
+
+button:hover {
+    opacity: 0.7;
+    transition: all 0.3s ease 0s;
 }
 
 p {
     font-size: 24px;
+}
+
+img:first-child::after{
+    content: "Joueur";
+    width: 100px;
+    height: 100px;
+    
+}
+
+img:last-child::after{
+    content: "Ordinateur";
+    width: 100px;
+    height: 100px;
+    
+}
+
+.image-container {
+    position: relative;
+    display: inline-block;
+    /* margin-left: 20%; */
+}
+
+.image-container.player::after {
+    content: "Joueur";
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #000;
+}
+
+h1{
+    text-align: center;
+
+}
+.image-container.computer::after {
+    content: "Ordinateur";
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #000;
+}
+
+
+/* Ajustez le style de votre conteneur #result pour utiliser flexbox */
+#result {
+    display: flex;
+    justify-content: center; /* Centre horizontalement */
+    align-items: center;     /* Centre verticalement */
+    gap: 10px;               /* Espacement entre les éléments */
+}
+
+.image-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.image-container::after {
+    /* Votre code existant pour afficher Joueur/Ordinateur reste inchangé */
+}
+
+
+.score-board {
+    margin: 20px;
+    font-size: 20px;
 }

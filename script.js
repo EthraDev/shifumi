@@ -1,71 +1,82 @@
-document.getElementById('start').addEventListener('click', function() {
-    var recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
-    recognition.lang = 'fr-FR';
+document.getElementById("start").addEventListener("click", function () {
+    var recognition = new (window.SpeechRecognition ||
+      window.webkitSpeechRecognition ||
+      window.mozSpeechRecognition ||
+      window.msSpeechRecognition)();
+    recognition.lang = "fr-FR";
     recognition.start();
-
-    recognition.onresult = function(event) {
-        var playerChoice = event.results[0][0].transcript;
-        playGame(playerChoice);
+  
+    recognition.onresult = function (event) {
+      var playerChoice = event.results[0][0].transcript.toLowerCase().trim();
+      playGame(playerChoice);
     };
 });
 
+var playerScore = 0;
+var computerScore = 0;
+
 function playGame(playerChoice) {
-    var choices = ['pierre', 'feuille', 'ciseaux'];
+    var choices = ["pierre", "feuille", "ciseaux"];
     var computerChoice = choices[Math.floor(Math.random() * choices.length)];
-
+  
     var result;
-    var imagePlayer;
-    var imageComputer;
-
-    if (playerChoice === 'pierre') {
-        if (computerChoice === 'feuille') {
-            result = 'Vous avez perdu! Vous avez choisi: pierre. L\'ordinateur a choisi: ' + computerChoice + '. ';
-        } else if (computerChoice === 'ciseaux') {
-            result = 'Vous avez gagné! Vous avez choisi: pierre. L\'ordinateur a choisi: ' + computerChoice + '. ';
+  
+    // Logique du jeu
+    if (playerChoice === "pierre") {
+        if (computerChoice === "feuille") {
+            result = "Vous avez perdu!";
+            computerScore++;
+        } else if (computerChoice === "ciseaux") {
+            result = "Vous avez gagné!";
+            playerScore++;
         } else {
-            result = 'C\'est une égalité! Vous avez choisi: pierre. L\'ordinateur a choisi: ' + computerChoice + '. ';
+            result = "C'est une égalité!";
         }
-        imagePlayer = 'pierre.png';
-    } else if (playerChoice === 'feuille') {
-        if (computerChoice === 'ciseaux') {
-            result = 'Vous avez perdu! Vous avez choisi: feuille. L\'ordinateur a choisi: ' + computerChoice + '. ';
-        } else if (computerChoice === 'pierre') {
-            result = 'Vous avez gagné! Vous avez choisi: feuille. L\'ordinateur a choisi: ' + computerChoice + '. ';
+    } else if (playerChoice === "feuille") {
+        if (computerChoice === "ciseaux") {
+            result = "Vous avez perdu!";
+            computerScore++;
+        } else if (computerChoice === "pierre") {
+            result = "Vous avez gagné!";
+            playerScore++;
         } else {
-            result = 'C\'est une égalité! Vous avez choisi: feuille. L\'ordinateur a choisi: ' + computerChoice + '. ';
+            result = "C'est une égalité!";
         }
-        imagePlayer = 'feuille.png';
-    } else if (playerChoice === 'ciseaux') {
-        if (computerChoice === 'pierre') {
-            result = 'Vous avez perdu! Vous avez choisi: ciseaux. L\'ordinateur a choisi: ' + computerChoice + '. ';
-        } else if (computerChoice === 'feuille') {
-            result = 'Vous avez gagné! Vous avez choisi: ciseaux. L\'ordinateur a choisi: ' + computerChoice + '. ';
+    } else if (playerChoice === "ciseaux") {
+        if (computerChoice === "pierre") {
+            result = "Vous avez perdu!";
+            computerScore++;
+        } else if (computerChoice === "feuille") {
+            result = "Vous avez gagné!";
+            playerScore++;
         } else {
-            result = 'C\'est une égalité! Vous avez choisi: ciseaux. L\'ordinateur a choisi: ' + computerChoice + '. ';
+            result = "C'est une égalité!";
         }
-        imagePlayer = 'ciseaux.png';
     } else {
-        result = 'Choix invalide!';
-        imagePlayer = '';
+        result = "Choix invalide!";
     }
+  
+    // Mise à jour de l'interface avec le résultat et le score
+    updateUI(result, playerChoice, computerChoice);
+}
 
-    if (imagePlayer !== '') {
-        result += '<img src="' + imagePlayer + '" alt="' + playerChoice + '">';
-    }
-
-    if (computerChoice === 'pierre') {
-        imageComputer = 'pierre.png';
-    } else if (computerChoice === 'feuille') {
-        imageComputer = 'feuille.png';
-    } else if (computerChoice === 'ciseaux') {
-        imageComputer = 'ciseaux.png';
+function updateUI(result, playerChoice, computerChoice) {
+    document.getElementById("playerScore").textContent = playerScore;
+    document.getElementById("computerScore").textContent = computerScore;
+  
+    let playerImageSrc;
+    if (["pierre", "feuille", "ciseaux"].includes(playerChoice)) {
+        playerImageSrc = `${playerChoice}.png`;
     } else {
-        imageComputer = '';
+        playerImageSrc = "homme.jpg"; // Image pour choix invalide
     }
 
-    if (imageComputer !== '') {
-        result += '<img src="' + imageComputer + '" alt="' + computerChoice + '">';
-    }
+    let computerImageSrc = `${computerChoice}.png`;
 
-    document.getElementById('result').innerHTML = result;
+    document.getElementById("result").innerHTML = `
+      <p>${result}</p>
+      <p>Vous avez choisi: ${playerChoice}. L'ordinateur a choisi: ${computerChoice}.</p>
+      <div class="image-container player"><img src="${playerImageSrc}" alt="${playerChoice}"></div>
+      <div class="image-container computer"><img src="${computerImageSrc}" alt="${computerChoice}"></div>
+    `;
 }

@@ -1,14 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>
+    <title>Pierre-Feuille-Ciseaux</title>
 </head>
 <body>
-    <button id="start">Commencer la reconnaissance vocale</button>
-    <p id="result"></p>
+    <h1>Pierre-Feuille-Ciseaux de la muerte 💀</h1>
+    <div class="flex">
+        <button id="start">Commencer la reconnaissance vocale</button>
+        <div>
+            <span><i>Vous devez recliquer sur le bouton à chaque fois !</i></span>    
+        </div>
+        <div class="score-board">
+            <div>Score Joueur: <span id="playerScore">0</span></div>
+            <div>Score Ordinateur: <span id="computerScore">0</span></div>
+        </div>
+    </div>
+    <div id="result" class="result"></div>
     <script src="script.js"></script>
 </body>
 </html>
